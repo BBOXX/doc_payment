@@ -16,7 +16,7 @@ search: true
 ---
 
 # Introduction
- The  HTTP(S) POST Notification API is designed to help developers integrate third-party applications with bboxx mobile money (. This guide provides the technical information about integrating and configuring a system with  using a RESTful HTTP(S) POST as the method of notification for Mobile Money transaction information. Enterprises can leverage the API to allow real-time acquisition of mobile money transactions processed via the System. This document describes the HTTP POST parameters and the format of the expected response.
+ The  HTTP(S) POST Notification API is designed to help developers integrate third-party applications with bboxx mobile money (. This guide provides the technical information about integrating and configuring a system with K2 using a RESTful HTTP(S) POST as the method of notification for Mobile Money transaction information. Enterprises can leverage the API to allow real-time acquisition of mobile money transactions processed via the K2 System. This document describes the HTTP POST parameters and the format of the expected response.
 Synchronous or Near Real-Time Transactions
 
 Enterprises that want to receive their mobile money transaction details as they are processed will utilize the XML over HTTP(S) bridge or the HTTP(S) POST Notification API. This document details the HTTP(S) POST Notification API option. The HTTP POST Notification API requires that the Enterprise system in question (Back Office MIS) expose a URL that HTTP or HTTPS (preferable) POST requests can be sent to. 
