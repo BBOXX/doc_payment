@@ -96,8 +96,7 @@ a {
 
 a:active,
 a:hover {
-    color: #FA5858;
-    text-decoration: none;
+    outline: 0;
 }
 
 /* Text-level semantics
@@ -231,7 +230,7 @@ code,
 kbd,
 pre,
 samp {
-    font-family: Menlo, monospace, monospace;
+    font-family: monospace, monospace;
     font-size: 1em;
 }
 

@@ -28,17 +28,11 @@ Our API has predictable, resource-oriented URLs, and uses HTTP response codes to
 Authenticate your account when using the API by including your secret API key in the request. You can manage your API keys in the Dashboard. Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such GitHub, client-side code, and so forth. 
 
 
-
-Authentication currently supported is “Basic” authentication. If authentication is required, the user name and password will have to be provided to the K2 application. If a different authentication method such as an API key/token is desired, one should be provided.
-
 Requirements: "Basic" authentication credentials (if in use)
 HMAC: Keyed-Hashing for Message Authentication
 
-To improve the security of authentication, a keyed-hash message authentication code (HMAC) is used to calculate a Message Authentication Code (MAC) that is sent over as one of the parameters (signature) and can be used to verify that the request is coming from Kopo Kopo. The cryptographic hash function SHA-1 is used to calculate the HMAC (HMAC-SHA1).
+To improve the security of authentication, a keyed-hash message authentication code (HMAC) is used to calculate a Message Authentication Code (MAC) that is sent over as one of the parameters (signature) and can be used to verify that the request is coming from you . The cryptographic hash function SHA-1 is used to calculate the HMAC (HMAC-SHA1).
 
-The 'secret key' (symmetric_key) that is used in hashing is the 'Api Key' that is located in the 'Account Settings' page of your account. Periodically re-generating the 'Api Key' is advised as a fundamental security practice.
-
-To generate the signature (MAC), the base string that is used is the post parameters (key – value pair) sorted in ascending order and separated by the '&' symbol. (NB: Do NOT URL encode the key value pairs.). The HMAC is generated using this string, the api key and the SHA-1 algorithm. The result is then Base64 encoded to form the signature that will be passed as a security parameter.
 
 
 
@@ -68,8 +62,7 @@ To generate the signature (MAC), the base string that is used is the post parame
 
 
 #Header
-The 
-following headers are mandatory for every message
+The following headers are mandatory for every message
 exchanged with this REST API:
 
 Name | description | Exemple
@@ -124,6 +117,10 @@ Description | Tne description message  | Dear Customer the payment was accepted.
 
 
 ## Status codes
+
+The bboxx Mobile Money API uses the following error codes:
+
+
 
 Parameter | description | Exemple
 ---------- | ------- | -------
