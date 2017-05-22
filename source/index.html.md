@@ -15,7 +15,19 @@ includes:
 search: true
 ---
 
-# Introduction
+
+# BBOXX BUSINESS API REFERENCE
+
+## Introduction
+
+
+The BBOXX BUSINESS API is organized around REST. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. We use built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients. We support cross-origin resource sharing, allowing you to interact securely with our API from a client-side web application (though you should never expose your secret API key in any public website's client-side code). JSON is returned by all API responses, including errors, although our API libraries convert responses to appropriate language-specific objects.
+
+
+
+# BBOXX MOBILE MONEY REFERENCE
+
+## Introduction
 
  The  HTTP(S) POST Notification API is designed to help developers integrate third-party applications with bboxx mobile money (. This guide provides the technical information about integrating and configuring a system with  using a RESTful HTTP(S) POST as the method of notification for Mobile Money transaction information. Enterprises can leverage the API to allow real-time acquisition of mobile money transactions processed via the System. This document describes the HTTP POST parameters and the format of the expected response.
 Synchronous or Near Real-Time Transactions
@@ -24,7 +36,8 @@ Our API has predictable, resource-oriented URLs, and uses HTTP response codes to
 
 
 
-# Authentication
+## Authentication
+
 Authenticate your account when using the API by including your secret API key in the request. You can manage your API keys in the Dashboard. Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such GitHub, client-side code, and so forth. 
 
 
@@ -36,10 +49,9 @@ To improve the security of authentication, a keyed-hash message authentication c
 
 
 
-
 ```python
 
-        body = self.dataIntegrity
+        body = dataIntegrity
         MessageId =  str(self.Messageid)
         originId = str(self.originId)
         CustomerId  = str(self.customerId)
@@ -52,7 +64,7 @@ To improve the security of authentication, a keyed-hash message authentication c
         except Exception as e:
             print 'error hash - 403 Forbidden Response'
         responseIntegrity = hashed.digest().encode("base64").rstrip('\n')
-        header_auth = self.customerId+':'+responseIntegrity
+        header_auth = customerId+':'+responseIntegrity
         if str(header_auth) == self.Authorization:
             return True
         return False
@@ -61,7 +73,8 @@ To improve the security of authentication, a keyed-hash message authentication c
 
 
 
-#Header
+## Header
+
 The following headers are mandatory for every message
 exchanged with this REST API:
 
@@ -76,9 +89,9 @@ MessageTimestamp |Message timestamp  | Date (YYYYMMDDHHMISS)
 
 
 
-# Request
+## Request
 
-The POST request will be sent to a URL provided by the enterprise. The following POST parameters that will be passed will be as follows:
+The POST request will be sent to the following URL. The following POST parameters that will be passed will be as follows:
 
 
 Parameter | description | Exemple
@@ -100,9 +113,41 @@ amount | The transaction amount |
 currency | Currency in use |
 
 
+```python
+body = '{
+
+  
+}'
 
 
-# Response
+url =  'https://apierp.bboxx.co.uk/mm/'
+
+post = requests.post(url=url, header= header, body= body)
+
+        body = dataIntegrity
+        MessageId =  str(self.Messageid)
+        originId = str(self.originId)
+        CustomerId  = str(self.customerId)
+        TransactionId = str(self.transaction_reference)
+        signature = str(self.key)
+
+        dataencoded = body + MessageId + originId + CustomerId
+        try :
+            hashed = hmac.new(signature, dataencoded.encode('UTF-8'), sha1)
+        except Exception as e:
+            print 'error hash - 403 Forbidden Response'
+        responseIntegrity = hashed.digest().encode("base64").rstrip('\n')
+        header_auth = customerId+':'+responseIntegrity
+        if str(header_auth) == self.Authorization:
+            return True
+        return False
+```
+
+
+
+
+
+## Response
 
 
 Upon the successful processing of the POST request, a JSON encoded response will be expected in the following format: 
@@ -118,13 +163,13 @@ Description | Tne description message  | Dear Customer the payment was accepted.
 
 ## Status codes
 
-The bboxx Mobile Money API uses the following error codes:
+The bboxx Mobile Money API uses the following codes:
 
 
 
-Parameter | description | Exemple
----------- | ------- | -------
-ProviderId | Bad Request -- |
-transactionId | Unauthorized -- |
-business_number | The Paybill number or Till number being paid to |
-service_name | The Mobile Money Provider  |
+Code | description 
+---------- | ------- 
+40001  | Bad Request --
+40002 | Unauthorized -- 
+40003 | The Paybill number or Till number being paid to 
+40004 | The Mobile Money Provider  
