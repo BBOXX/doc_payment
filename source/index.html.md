@@ -114,13 +114,16 @@ currency | Currency in use |
 
 
 ```python
-body = '{
+body = '{"transactionId" : "123647","reference" : "4526",
+  "operator" : "mtn_tst",  "subscriber" : "250786474859",  "countryCode" : "RW", "currency" : "RWF",   "amount" : 200.0  
+}' 
 
-  
-}'
+Headers ={' Authorization':'12000:fq/LZ0n8YxOp0tC3NLaj6GbPFE8=', 'SMSSupport:Y' ,
+'MessageID':74e46da2-41ff-8bba-f529-930acbffdb4c','MessageTimestamp':'20161029113022'} 
 
 
-url =  'https://apierp.bboxx.co.uk/mm/'
+
+url =  'https://apierp.bboxx.co.uk/mm/1.0/payments/payment/200/customers/12000/payments'
 
 post = requests.post(url=url, header= header, body= body)
 
@@ -173,3 +176,12 @@ Code | description
 40002 | Unauthorized -- 
 40003 | The Paybill number or Till number being paid to 
 40004 | The Mobile Money Provider  
+
+
+```python
+
+{"errorCode": "400010", "errorDescription": "Duplicate Transaction ID "}
+
+```
+
+
