@@ -2,8 +2,8 @@
 title: API Reference
 
 language_tabs:
-  - shell
   - python
+
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
@@ -15,17 +15,44 @@ includes:
 search: true
 ---
 
-
-# BBOXX BUSINESS API REFERENCE
+# BBOXX BUSINESS API 
 
 ## Introduction
 
-
-The BBOXX BUSINESS API is organized around REST. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. We use built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients. We support cross-origin resource sharing, allowing you to interact securely with our API from a client-side web application (though you should never expose your secret API key in any public website's client-side code). JSON is returned by all API responses, including errors, although our API libraries convert responses to appropriate language-specific objects.
-
+The BBOXX BUSINESS API is organized around REST. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. We use built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients. We support cross-origin resource sharing, allowing you to interact securely with our API.
 
 
-# BBOXX MOBILE MONEY REFERENCE
+## Authentication
+
+```python
+
+    url = 'http://apierp.bboxx.co.uk/authenticate'
+    fields = {
+        "username": <username>,
+        "password": <password>
+    }
+
+    r = requests.post(url, data=fields)
+
+    token = r.json['content']['data']['token']
+    headers={'X-Auth-Token': token}
+
+```
+
+Authentication for any request is made by added a valid token to the headers as follows:
+
+{'Content-Type': 'application/json', 'X-Auth-Token': <token>}
+
+The token is a random 64-char string.
+
+
+## Business HTTP API.
+
+Please contact the commercial service to get access to the different Endpoint: Contact@bboxx.co.uk
+
+
+
+# BBOXX MOBILE MONEY API
 
 ## Introduction
 
@@ -38,8 +65,29 @@ Our API has predictable, resource-oriented URLs, and uses HTTP response codes to
 
 ## Authentication
 
+
+
 Authenticate your account when using the API by including your secret API key in the request. You can manage your API keys in the Dashboard. Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such GitHub, client-side code, and so forth. 
 
+
+
+```python
+
+
+        dataencoded = body + MessageId + originId + CustomerId
+        try :
+            hashed = hmac.new(signature, dataencoded.encode('UTF-8'), sha1)
+        except Exception as e:
+            print 'error hash - 403 Forbidden Response'
+        responseIntegrity = hashed.digest().encode("base64").rstrip('\n')
+        header_auth = CustomerId+':'+responseIntegrity
+        if str(header_auth) == Authorization:
+            return True
+        return False
+```
+
+
+### Signature
 
 Requirements: "Basic" authentication credentials (if in use)
 HMAC: Keyed-Hashing for Message Authentication
@@ -49,139 +97,122 @@ To improve the security of authentication, a keyed-hash message authentication c
 
 
 
-```python
-
-        body = dataIntegrity
-        MessageId =  str(self.Messageid)
-        originId = str(self.originId)
-        CustomerId  = str(self.customerId)
-        TransactionId = str(self.transaction_reference)
-        signature = str(self.key)
-
-        dataencoded = body + MessageId + originId + CustomerId
-        try :
-            hashed = hmac.new(signature, dataencoded.encode('UTF-8'), sha1)
-        except Exception as e:
-            print 'error hash - 403 Forbidden Response'
-        responseIntegrity = hashed.digest().encode("base64").rstrip('\n')
-        header_auth = customerId+':'+responseIntegrity
-        if str(header_auth) == self.Authorization:
-            return True
-        return False
-```
+##  Payment notification
 
 
+### Headers
 
-
-## Header
-
-The following headers are mandatory for every message
-exchanged with this REST API:
-
-Name | description | Exemple
----------- | ------- | -------
-Content-Type | If a request payload is sent, it should always be a JSON string | application/json
-Authorization | Hash to authentication the requesting system | clientXYZ:uCMfSzkjue+HSDygYB5aEg==
-MessageTimestamp |Message timestamp  | Date (YYYYMMDDHHMISS)
-
-
-
-
-
-
-## Request
-
-The POST request will be sent to the following URL. The following POST parameters that will be passed will be as follows:
-
-
-Parameter | description | Exemple
----------- | ------- | -------
-ProviderId | Bad Request -- |
-transactionId | Unauthorized -- |
-business_number | The Paybill number or Till number being paid to |
-service_name | The Mobile Money Provider  |
-transaction_reference | The reference number as assigned to the transaction by the mobile money provider | 
-internal_transaction_id | The internal ID of the transaction within Kopo Kopo. |
-transaction_timestamp | The time stamp of the transaction in ISO 8601 format.  |
-transaction_type | The type of the transaction eg. Paybill, Buygoods etc, |
-account_number | The account number as entered by the subscriber. (optional – only for Paybill payments) |
-sender_phone | The subscriber's phone number (subscriber making the payment) in E.164 format | 
-first_name | The first name of the subscriber |
-middle_name | The middle name of the subscriber| 
-last_name | The last name of the subscriber |
-amount | The transaction amount |
-currency | Currency in use |
+The following headers are mandatory for every message exchanged with this REST API:
 
 
 ```python
-body = '{"transactionId" : "123647","reference" : "4526",
-  "operator" : "mtn_tst",  "subscriber" : "250786474859",  "countryCode" : "RW", "currency" : "RWF",   "amount" : 200.0  
-}' 
+
 
 Headers ={' Authorization':'12000:fq/LZ0n8YxOp0tC3NLaj6GbPFE8=', 'SMSSupport:Y' ,
-'MessageID':74e46da2-41ff-8bba-f529-930acbffdb4c','MessageTimestamp':'20161029113022'} 
+'MessageID':'74e46da2-41ff-8bba-f529-930acbffdb4c','MessageTimestamp':'20161029113022'} 
+
+```
+
+Name | description 
+---------- | ------- 
+Content-Type | If a request payload is sent, it should always be a JSON string 
+Authorization | Hash to authentication the requesting system 
+MessageTimestamp |Message timestamp  
 
 
 
+### HTTP POST
+
+
+#### Description
+This endpoint allows for a payment to be created. 
+
+
+The POST request will be sent to the following URL:
+https://apierp.bboxx.co.uk/mm/1.0/payments/payment/<Providerid>/customers/<CustomerId>/payments
+
+
+Name | description 
+---------- | ------- 
+ProviderId | If a request payload is sent, it should always be a JSON string 
+CustomerId | Hash to authentication the requesting system 
+
+
+
+
+
+
+#### Request Payload
+Following table provides information of each JSON field of the HTTP request body:
+
+```python
 url =  'https://apierp.bboxx.co.uk/mm/1.0/payments/payment/200/customers/12000/payments'
+
+Headers ={' Authorization':'12000:fq/LZ0n8YxOp0tC3NLaj6GbPFE8=', 'SMSSupport:Y' ,
+'MessageID':'74e46da2-41ff-8bba-f529-930acbffdb4c','MessageTimestamp':'20161029113022'} 
+
+body = '{"transactionId" : "123647",
+"reference" : "4526",
+  "operator" : "Mobile_provider", 
+   "subscriber" : "250786474859", 
+    "countryCode" : "RW", 
+    "currency" : "RWF", 
+    "transaction_type": "PayBill"
+    "first_name": "Jhon",
+    account_number:"45678",
+    "last_name": "Doe",
+
+     "amount" : 200.0 }' 
 
 post = requests.post(url=url, header= header, body= body)
 
-        body = dataIntegrity
-        MessageId =  str(self.Messageid)
-        originId = str(self.originId)
-        CustomerId  = str(self.customerId)
-        TransactionId = str(self.transaction_reference)
-        signature = str(self.key)
-
-        dataencoded = body + MessageId + originId + CustomerId
-        try :
-            hashed = hmac.new(signature, dataencoded.encode('UTF-8'), sha1)
-        except Exception as e:
-            print 'error hash - 403 Forbidden Response'
-        responseIntegrity = hashed.digest().encode("base64").rstrip('\n')
-        header_auth = customerId+':'+responseIntegrity
-        if str(header_auth) == self.Authorization:
-            return True
-        return False
+      
 ```
 
+Fields | Description 
+----------| ------- 
+transactionId <br><font color="DarkGray">_string_</font> | Unauthorized 
+business_number<br><font color="DarkGray">_string_</font>  | The Paybill number or Till number being paid to 
+operator<br><font color="DarkGray">_string_</font> | The Mobile Money Provider 
+transaction_reference <br><font color="DarkGray">_string_</font>| The reference number as assigned to the transaction by the mobile money provider  
+internal_transaction_id<br><font color="DarkGray">_string_</font> | The internal ID of the transaction within Kopo Kopo. 
+transaction_type <br><font color="DarkGray">_string_</font>| The type of the transaction eg. Paybill, Buygoods etc, 
+account_number <br><font color="DarkGray">_string_</font> | The account number as entered by the subscriber. (optional – only for Paybill payments) 
+sender_phone <br><font color="DarkGray">_string_</font> | The subscriber's phone number (subscriber making the payment) in E.164 format 
+first_name <br><font color="DarkGray">_string_</font> | The first name of the subscriber 
+last_name <br><font color="DarkGray">_string_</font>| The last name of the subscriber 
+amount <br><font color="DarkGray">_int_</font>| The transaction amount 
+currency <br><font color="DarkGray">_string_</font> | Currency in use 
 
 
 
-
-## Response
+### Response Payload 
 
 
 Upon the successful processing of the POST request, a JSON encoded response will be expected in the following format: 
 
-Parameter | description | Exemple
----------- | ------- | -------
-ProviderTransactionId | The  provider’s reference ID of the payment |
-Status | The status of the payment: | REJECTED -ACCEPTED
-Description | Tne description message  | Dear Customer the payment was accepted.
-
-
-
-
-## Status codes
-
-The bboxx Mobile Money API uses the following codes:
-
-
-
-Code | description 
----------- | ------- 
-40001  | Bad Request --
-40002 | Unauthorized -- 
-40003 | The Paybill number or Till number being paid to 
-40004 | The Mobile Money Provider  
-
 
 ```python
 
-{"errorCode": "400010", "errorDescription": "Duplicate Transaction ID "}
+ {"providerTransactionId":"0123456",
+        "status": "ACCEPTED",
+        "Description": "Dear Customer the payment was accepted."}
+
 
 ```
+
+Parameter | description 
+---------- | ------- 
+ProviderTransactionId | The  provider’s reference ID of the payment 
+Status | The status of the payment: 
+Description | Tne description message  
+
+
+
+
+
+
+
+
 
 
