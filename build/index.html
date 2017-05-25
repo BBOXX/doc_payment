@@ -1,0 +1,498 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;python&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <img src="images/logo.png" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="python">python</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc">
+      </div>
+        <ul class="toc-footer">
+            <li><a href='#'>Sign Up for a Developer Key</a></li>
+            <li><a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="bboxx-business-api">BBOXX BUSINESS API</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>The BBOXX BUSINESS API is organized around REST. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. We use built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients. We support cross-origin resource sharing, allowing you to interact securely with our API.</p>
+
+<h2 id="authentication">Authentication</h2>
+<pre class="highlight python tab-python"><code>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">'http://apierp.bboxx.co.uk/authenticate'</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">"username"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="s">"password"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span>
+    <span class="p">}</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">fields</span><span class="p">)</span>
+
+    <span class="n">token</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s">'content'</span><span class="p">][</span><span class="s">'data'</span><span class="p">][</span><span class="s">'token'</span><span class="p">]</span>
+    <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s">'X-Auth-Token'</span><span class="p">:</span> <span class="n">token</span><span class="p">}</span>
+
+</code></pre>
+<p>Authentication for any request is made by added a valid token to the headers as follows:</p>
+
+<p>{&lsquo;Content-Type&rsquo;: &lsquo;application/json&rsquo;, &lsquo;X-Auth-Token&rsquo;: <token>}</p>
+
+<p>The token is a random 64-char string.</p>
+
+<h2 id="business-http-api">Business HTTP API.</h2>
+
+<p>Please contact the commercial service to get access to the different Endpoint: Contact@bboxx.co.uk</p>
+
+<h1 id="bboxx-mobile-money-api">BBOXX MOBILE MONEY API</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>The  HTTP(S) POST Notification API is designed to help developers integrate third-party applications with bboxx mobile money (. This guide provides the technical information about integrating and configuring a system with  using a RESTful HTTP(S) POST as the method of notification for Mobile Money transaction information. Enterprises can leverage the API to allow real-time acquisition of mobile money transactions processed via the System. This document describes the HTTP POST parameters and the format of the expected response.
+Synchronous or Near Real-Time Transactions</p>
+
+<p>Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. We use built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients. We support cross-origin resource sharing, allowing you to interact securely with our API from a client-side web application (though you should never expose your secret API key in any public website&rsquo;s client-side code). JSON is returned by all API responses, including errors, although our API libraries convert responses to appropriate language-specific objects. </p>
+
+<h2 id="authentication">Authentication</h2>
+
+<p>Authenticate your account when using the API by including your secret API key in the request. You can manage your API keys in the Dashboard. Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such GitHub, client-side code, and so forth. </p>
+<pre class="highlight python tab-python"><code>
+
+        <span class="n">dataencoded</span> <span class="o">=</span> <span class="n">body</span> <span class="o">+</span> <span class="n">MessageId</span> <span class="o">+</span> <span class="n">originId</span> <span class="o">+</span> <span class="n">CustomerId</span>
+        <span class="k">try</span> <span class="p">:</span>
+            <span class="n">hashed</span> <span class="o">=</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="n">dataencoded</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'UTF-8'</span><span class="p">),</span> <span class="n">sha1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">'error hash - 403 Forbidden Response'</span>
+        <span class="n">responseIntegrity</span> <span class="o">=</span> <span class="n">hashed</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">"base64"</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+        <span class="n">header_auth</span> <span class="o">=</span> <span class="n">CustomerId</span><span class="o">+</span><span class="s">':'</span><span class="o">+</span><span class="n">responseIntegrity</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">header_auth</span><span class="p">)</span> <span class="o">==</span> <span class="n">Authorization</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span>
+</code></pre>
+<h3 id="signature">Signature</h3>
+
+<p>Requirements: &ldquo;Basic&rdquo; authentication credentials (if in use)
+HMAC: Keyed-Hashing for Message Authentication</p>
+
+<p>To improve the security of authentication, a keyed-hash message authentication code (HMAC) is used to calculate a Message Authentication Code (MAC) that is sent over as one of the parameters (signature) and can be used to verify that the request is coming from you . The cryptographic hash function SHA-1 is used to calculate the HMAC (HMAC-SHA1).</p>
+
+<h2 id="payment-notification">Payment notification</h2>
+
+<h3 id="headers">Headers</h3>
+
+<p>The following headers are mandatory for every message exchanged with this REST API:</p>
+<pre class="highlight python tab-python"><code>
+
+<span class="n">Headers</span> <span class="o">=</span><span class="p">{</span><span class="s">' Authorization'</span><span class="p">:</span><span class="s">'12000:fq/LZ0n8YxOp0tC3NLaj6GbPFE8='</span><span class="p">,</span> <span class="s">'SMSSupport:Y'</span> <span class="p">,</span>
+<span class="s">'MessageID'</span><span class="p">:</span><span class="s">'74e46da2-41ff-8bba-f529-930acbffdb4c'</span><span class="p">,</span><span class="s">'MessageTimestamp'</span><span class="p">:</span><span class="s">'20161029113022'</span><span class="p">}</span> 
+
+</code></pre>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Content-Type</td>
+<td>If a request payload is sent, it should always be a JSON string</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>Hash to authentication the requesting system</td>
+</tr>
+<tr>
+<td>MessageTimestamp</td>
+<td>Message timestamp</td>
+</tr>
+</tbody></table>
+
+<h3 id="http-post">HTTP POST</h3>
+
+<h4 id="description">Description</h4>
+
+<p>This endpoint allows for a payment to be created. </p>
+
+<p>The POST request will be sent to the following URL:
+https://apierp.bboxx.co.uk/mm/1.0/payments/payment/<Providerid>/customers/<CustomerId>/payments</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ProviderId</td>
+<td>If a request payload is sent, it should always be a JSON string</td>
+</tr>
+<tr>
+<td>CustomerId</td>
+<td>Hash to authentication the requesting system</td>
+</tr>
+</tbody></table>
+
+<h4 id="request-payload">Request Payload</h4>
+
+<p>Following table provides information of each JSON field of the HTTP request body:</p>
+<pre class="highlight python tab-python"><code><span class="n">url</span> <span class="o">=</span>  <span class="s">'https://apierp.bboxx.co.uk/mm/1.0/payments/payment/200/customers/12000/payments'</span>
+
+<span class="n">Headers</span> <span class="o">=</span><span class="p">{</span><span class="s">' Authorization'</span><span class="p">:</span><span class="s">'12000:fq/LZ0n8YxOp0tC3NLaj6GbPFE8='</span><span class="p">,</span> <span class="s">'SMSSupport:Y'</span> <span class="p">,</span>
+<span class="s">'MessageID'</span><span class="p">:</span><span class="s">'74e46da2-41ff-8bba-f529-930acbffdb4c'</span><span class="p">,</span><span class="s">'MessageTimestamp'</span><span class="p">:</span><span class="s">'20161029113022'</span><span class="p">}</span> 
+
+<span class="n">body</span> <span class="o">=</span> <span class="s">'{"transactionId" : "123647",</span><span class="err">
+</span><span class="s">"reference" : "4526",</span><span class="err">
+</span><span class="s">  "operator" : "Mobile_provider", </span><span class="err">
+</span><span class="s">   "subscriber" : "250786474859", </span><span class="err">
+</span><span class="s">    "countryCode" : "RW", </span><span class="err">
+</span><span class="s">    "currency" : "RWF", </span><span class="err">
+</span><span class="s">    "transaction_type": "PayBill"</span><span class="err">
+</span><span class="s">    "first_name": "Jhon",</span><span class="err">
+</span><span class="s">    account_number:"45678",</span><span class="err">
+</span><span class="s">    "last_name": "Doe",</span><span class="err">
+
+</span><span class="s">     "amount" : 200.0 }'</span> 
+
+<span class="n">post</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span> <span class="n">header</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span> <span class="n">body</span><span class="p">)</span>
+
+
+</code></pre>
+<table><thead>
+<tr>
+<th>Fields</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>transactionId <br><font color="DarkGray"><em>string</em></font></td>
+<td>Unauthorized</td>
+</tr>
+<tr>
+<td>business_number<br><font color="DarkGray"><em>string</em></font></td>
+<td>The Paybill number or Till number being paid to</td>
+</tr>
+<tr>
+<td>operator<br><font color="DarkGray"><em>string</em></font></td>
+<td>The Mobile Money Provider</td>
+</tr>
+<tr>
+<td>transaction_reference <br><font color="DarkGray"><em>string</em></font></td>
+<td>The reference number as assigned to the transaction by the mobile money provider</td>
+</tr>
+<tr>
+<td>internal_transaction_id<br><font color="DarkGray"><em>string</em></font></td>
+<td>The internal ID of the transaction within Kopo Kopo.</td>
+</tr>
+<tr>
+<td>transaction_type <br><font color="DarkGray"><em>string</em></font></td>
+<td>The type of the transaction eg. Paybill, Buygoods etc,</td>
+</tr>
+<tr>
+<td>account_number <br><font color="DarkGray"><em>string</em></font></td>
+<td>The account number as entered by the subscriber. (optional – only for Paybill payments)</td>
+</tr>
+<tr>
+<td>sender_phone <br><font color="DarkGray"><em>string</em></font></td>
+<td>The subscriber&rsquo;s phone number (subscriber making the payment) in E.164 format</td>
+</tr>
+<tr>
+<td>first_name <br><font color="DarkGray"><em>string</em></font></td>
+<td>The first name of the subscriber</td>
+</tr>
+<tr>
+<td>last_name <br><font color="DarkGray"><em>string</em></font></td>
+<td>The last name of the subscriber</td>
+</tr>
+<tr>
+<td>amount <br><font color="DarkGray"><em>int</em></font></td>
+<td>The transaction amount</td>
+</tr>
+<tr>
+<td>currency <br><font color="DarkGray"><em>string</em></font></td>
+<td>Currency in use</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-payload">Response Payload</h3>
+
+<p>Upon the successful processing of the POST request, a JSON encoded response will be expected in the following format: </p>
+<pre class="highlight python tab-python"><code>
+ <span class="p">{</span><span class="s">"providerTransactionId"</span><span class="p">:</span><span class="s">"0123456"</span><span class="p">,</span>
+        <span class="s">"status"</span><span class="p">:</span> <span class="s">"ACCEPTED"</span><span class="p">,</span>
+        <span class="s">"Description"</span><span class="p">:</span> <span class="s">"Dear Customer the payment was accepted."</span><span class="p">}</span>
+
+
+</code></pre>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ProviderTransactionId</td>
+<td>The  provider’s reference ID of the payment</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>The status of the payment:</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Tne description message</td>
+</tr>
+</tbody></table>
+
+          <h1 id="errors-code">Errors Code</h1>
+
+<p>The Bboxx Mobile Money API uses the following error codes:</p>
+
+<table><thead>
+<tr>
+<th>Code</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>40001</td>
+<td>Bad Request &ndash;</td>
+</tr>
+<tr>
+<td>40002</td>
+<td>Unauthorized &ndash;</td>
+</tr>
+<tr>
+<td>40003</td>
+<td>The Paybill number or Till number being paid to</td>
+</tr>
+<tr>
+<td>40004</td>
+<td>The Mobile Money Provider doesn&rsquo;t exist</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="python">python</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
