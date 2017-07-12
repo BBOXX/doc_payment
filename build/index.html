@@ -281,14 +281,75 @@ Synchronous or Near Real-Time Transactions.</p>
             <span class="k">return</span> <span class="bp">True</span>
         <span class="k">return</span> <span class="bp">False</span>
 </code></pre>
-<h3 id="signature">Signature</h3>
 
-<p>Requirements: &ldquo;Basic&rdquo; authentication credentials (if in use)
-HMAC: Keyed-Hashing for Message Authentication</p>
+<p>
+  To authenticate the user and ensuring data integrity, a secure Message Authentication Code (HMAC) is used.
+Technically, the HTTP header “Authorization” will be used for this additional security. The header will include both a
+client identifier and the hash value, e.g.:<br></p>
+<p>
+Authorization: clientXYZ:uCMfSzkjue+HSDygYB5aEg==
+</p>
+<p>
+The hash mechanism uses is  HMAC-SHA1. HMAC allows you to both authenticate the
+client and verify the integrity of the request message. 
+ HMAC is used as follows:<br></p>
+ <p>
+ The client combines the JSON message , the message ID , path variables and the shared key, applies the HMAC function and retrieves the hash output.
+Syntax:   Authorizaton: clientIdentifier : encodedBase64String 
+Detailed Syntax: Authorization: clientXYZ:encodeBase64String (HmacSHA1(JsonRequestBodyFromHubToProvider +
+messageID + originID + customerID , sharedSecret))</p>
+`
+<p>
+Example: Authorization: clientXYZ:uZMBfSzkjue+HSDygYB5aEg== <br></p>
 
-<p>To improve the security of authentication, a keyed-hash message authentication code (HMAC) is used to calculate a Message Authentication Code (MAC) that is sent over as one of the parameters (signature) and can be used to verify that the request is coming from you . The cryptographic hash function SHA-1 is used to calculate the HMAC (HMAC-SHA1).</p>
+<p>
+ The client adds the “Authorization” header to the request<br>
+The client sends the request<br>
+ The server receives the messages and extracts the “Authorization” header<br>
+ Based on the client id the server finds the shared secret<br>
+ Similar to the client, the server combines the message, the message id, the optional path variables and<br>
+shared key to generate the HMAC hash and compares it to the client generated hash (available in the
+“Authorization” header)<br>
+ The server only accepts the request if the two hash values are matching<br>
+In case the hash values don’t match a HTTP 403 (Forbidden) response should be sent.
+Note: the resulting hash value should be encoded in the Base 64 encoding scheme.
+</p>
 
-<h2 id="payment-notification">Payment notification</h2>
+<table><thead>
+<tr>
+<th>Fields</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body <br><font color="DarkGray"><em>string</em></font></td>
+<td>The JSON message</td>
+</tr>
+<tr>
+<td>MessageId<br><font color="DarkGray"><em>string</em></font></td>
+<td>The value of the identifier is of the following format GUID, where each digit is a hexadecimal value. </td>
+</tr>
+<tr>
+<td>originId<br><font color="DarkGray"><em>string</em></font></td>
+<td>Uniquely identifies the
+Mobile Operator that
+initiated the request</td>
+</tr>
+<tr>
+<td>CustomerId <br><font color="DarkGray"><em>string</em></font></td>
+<td>Uniquely defines a
+customer in the SP
+system. Depending on the
+provider.</td>
+</tr>
+
+
+
+
+</tbody></table>
+
+
+<h2 id="payment-notification">Payment notification</h2>originId
 
 <h3 id="headers">Headers</h3>
 
@@ -326,7 +387,7 @@ HMAC: Keyed-Hashing for Message Authentication</p>
 <p>This endpoint allows for a payment to be created. </p>
 
 <p>The POST request will be sent to the following URL:
-https://apierp.bboxx.co.uk/mm/1.0/payments/payment/<Providerid>/customers/<CustomerId>/payments</p>
+https://apierp.bboxx.co.uk/mm/1.0/payments/payment/ ProviderId /customers/ CustomerId /payments</p>
 
 <table><thead>
 <tr>
