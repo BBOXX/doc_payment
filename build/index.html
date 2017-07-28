@@ -252,7 +252,7 @@
 
 <p>The token is a random 64-char string.</p>
 
-<h2 id="business-http-api">Business HTTP API.</h2>
+<h2 id="business-http-api">Business API Endpoint.</h2>
 
 <p>Please contact the commercial service to get access to the different Endpoint: Contact@bboxx.co.uk</p>
 
@@ -268,19 +268,6 @@ Synchronous or Near Real-Time Transactions.</p>
 <h2 id="authentication">Authentication</h2>
 
 <p>Authenticate your account when using the API by including your secret API key in the request. You can manage your API keys in the Dashboard. Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such GitHub, client-side code, and so forth. </p>
-<pre class="highlight python tab-python"><code>
-
-        <span class="n">dataencoded</span> <span class="o">=</span> <span class="n">body</span> <span class="o">+</span> <span class="n">MessageId</span> <span class="o">+</span> <span class="n">originId</span> <span class="o">+</span> <span class="n">CustomerId</span>
-        <span class="k">try</span> <span class="p">:</span>
-            <span class="n">hashed</span> <span class="o">=</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="n">dataencoded</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'UTF-8'</span><span class="p">),</span> <span class="n">sha1</span><span class="p">)</span>
-        <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">print</span> <span class="s">'error hash - 403 Forbidden Response'</span>
-        <span class="n">responseIntegrity</span> <span class="o">=</span> <span class="n">hashed</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">"base64"</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
-        <span class="n">header_auth</span> <span class="o">=</span> <span class="n">CustomerId</span><span class="o">+</span><span class="s">':'</span><span class="o">+</span><span class="n">responseIntegrity</span>
-        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">header_auth</span><span class="p">)</span> <span class="o">==</span> <span class="n">Authorization</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">True</span>
-        <span class="k">return</span> <span class="bp">False</span>
-</code></pre>
 
 <p>
   To authenticate the user and ensuring data integrity, a secure Message Authentication Code (HMAC) is used.
@@ -315,6 +302,21 @@ In case the hash values don’t match a HTTP 403 (Forbidden) response should be 
 Note: the resulting hash value should be encoded in the Base 64 encoding scheme.
 </p>
 
+<pre class="highlight python tab-python"><code>
+
+        <span class="n">dataencoded</span> <span class="o">=</span> <span class="n">body</span> <span class="o">+</span> <span class="n">MessageId</span> <span class="o">+</span> <span class="n">originId</span> <span class="o">+</span> <span class="n">CustomerId</span>
+        <span class="k">try</span> <span class="p">:</span>
+            <span class="n">hashed</span> <span class="o">=</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="n">dataencoded</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'UTF-8'</span><span class="p">),</span> <span class="n">sha1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">'error hash - 403 Forbidden '</span>
+        <span class="n">responseIntegrity</span> <span class="o">=</span> <span class="n">hashed</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">"base64"</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+        <span class="n">header_auth</span> <span class="o">=</span> <span class="n">CustomerId</span><span class="o">+</span><span class="s">':'</span><span class="o">+</span><span class="n">responseIntegrity</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">header_auth</span><span class="p">)</span> <span class="o">==</span> <span class="n">Authorization</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span>
+</code></pre>
+
+
 <table><thead>
 <tr>
 <th>Fields</th>
@@ -344,20 +346,25 @@ provider.</td>
 </tr>
 
 
-
-
 </tbody></table>
 
 
-<h2 id="payment-notification">Payment notification</h2>originId
+<h2 id="payment-notification">Payment notification</h2>
 
 <h3 id="headers">Headers</h3>
 
 <p>The following headers are mandatory for every message exchanged with this REST API:</p>
 <pre class="highlight python tab-python"><code>
 
-<span class="n">Headers</span> <span class="o">=</span><span class="p">{</span><span class="s">' Authorization'</span><span class="p">:</span><span class="s">'12000:fq/LZ0n8YxOp0tC3NLaj6GbPFE8='</span><span class="p">,</span> <span class="s">'SMSSupport:Y'</span> <span class="p">,</span>
-<span class="s">'MessageID'</span><span class="p">:</span><span class="s">'74e46da2-41ff-8bba-f529-930acbffdb4c'</span><span class="p">,</span><span class="s">'MessageTimestamp'</span><span class="p">:</span><span class="s">'20161029113022'</span><span class="p">}</span> 
+<span class="n">Headers</span> <span class="o">=</span><span class="s">{</span><span class="err">
+</span><span class="s">' Authorization'</span><span class="s">:</span><span class="s">'12000:fq/LZ0n8YxOp0tC3NLaj6GbPFE8='</span><span class="s">,</span><span class="err">
+</span>
+ <span class="s">'SMSSupport:Y'</span> <span class="s">,</span><span class="err">
+</span>
+<span class="s">'MessageID'</span><span class="s">:</span><span class="s">'74e46da2-41ff-8bba-f529-930acbffdb4c'</span><span class="s">,</span><span class="err">
+</span>
+<span class="s">'MessageTimestamp'</span><span class="s">:</span><span class="s">'20161029113022'</span><span class="p">}</span> 
+
 
 </code></pre>
 <table><thead>
@@ -386,10 +393,19 @@ ISS)</td>
 
 <h4 id="description">Description</h4>
 
-<p>This endpoint allows for a payment to be created. </p>
+<p>The POST request will be sent to the following URL: </p>
 
-<p>The POST request will be sent to the following URL:
-https://apierp.bboxx.co.uk/mm/1.0/payments/payment/ ProviderId /customers/ CustomerId /payments</p>
+
+<pre class="highlight python tab-python"><code>
+
+<span class="n">
+
+https://apierp.bboxx.co.uk/mm/1.0/payments/payment/ ProviderId /customers/ CustomerId /payments</span>
+</code></pre>
+
+
+
+
 
 <table><thead>
 <tr>
@@ -421,24 +437,23 @@ support SMS</td>
 <p>Following table provides information of each JSON field of the HTTP request body:</p>
 <pre class="highlight python tab-python"><code><span class="n">url</span> <span class="o">=</span>  <span class="s">'https://apierp.bboxx.co.uk/mm/1.0/payments/payment/200/customers/12000/payments'</span>
 
-<span class="n">Headers</span> <span class="o">=</span><span class="p">{</span><span class="s">' Authorization'</span><span class="p">:</span><span class="s">'12000:fq/LZ0n8YxOp0tC3NLaj6GbPFE8='</span><span class="p">,</span> <span class="s">'SMSSupport:Y'</span> <span class="p">,</span>
+<span class="n">Headers</span> <span class="o"> = </span><span class="p">{</span><span class="s">' Authorization'</span><span class="p">:</span><span class="s">'12000:fq/LZ0n8YxOp0tC3NLaj6GbPFE8='</span><span class="p">,</span> <span class="s">'SMSSupport:Y'</span> <span class="p">,</span>
 <span class="s">'MessageID'</span><span class="p">:</span><span class="s">'74e46da2-41ff-8bba-f529-930acbffdb4c'</span><span class="p">,</span><span class="s">'MessageTimestamp'</span><span class="p">:</span><span class="s">'20161029113022'</span><span class="p">}</span> 
 
 <span class="n">body</span> <span class="o">=</span> <span class="s">'{"transactionId" : "123647",</span><span class="err">
-</span><span class="s">"reference" : "4526",</span><span class="err">
-</span><span class="s">  "operator" : "Mobile_provider", </span><span class="err">
-</span><span class="s">   "subscriber" : "250786474859", </span><span class="err">
-</span><span class="s">    "countryCode" : "RW", </span><span class="err">
-</span><span class="s">    "currency" : "RWF", </span><span class="err">
-</span><span class="s">    "transaction_type": "PayBill"</span><span class="err">
-</span><span class="s">    "first_name": "Jhon",</span><span class="err">
-</span><span class="s">    account_number:"45678",</span><span class="err">
-</span><span class="s">    "last_name": "Doe",</span><span class="err">
-
-</span><span class="s">     "amount" : 200.0 }'</span> 
-
+</span><span class="s">	"reference" : "4526",</span><span class="err">
+</span><span class="s">	"operator" : "Mobile_provider", </span><span class="err">
+</span><span class="s">	"subscriber" : "250786474859", </span><span class="err">
+</span><span class="s">	"countryCode" : "RW", </span><span class="err">
+</span><span class="s">	"currency" : "RWF", </span><span class="err">
+</span><span class="s">	"transaction_type": "PayBill"</span><span class="err">
+</span><span class="s">	"first_name": "Jhon",</span><span class="err">
+</span><span class="s">	"account_number":"45678",</span><span class="err">
+</span><span class="s">	"last_name": "Doe",</span><span class="err">
+</span><span class="s">	"amount" : 200.00 }'</span> 
+<!-- 
 <span class="n">post</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span> <span class="n">header</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span> <span class="n">body</span><span class="p">)</span>
-
+ -->
 
 </code></pre>
 <table><thead>
@@ -452,16 +467,22 @@ support SMS</td>
 <td>Unique identifier of the payment as
 generated by the MMO</td>
 </tr>
-<tr>
+<!-- <tr>
 <td>business_number<br><font color="DarkGray"><em>string</em></font></td>
 <td>The Paybill number or Till number being paid to</td>
-</tr>
+</tr> -->
 <tr>
 <td>operator<br><font color="DarkGray"><em>string</em></font></td>
-<td>The Mobile Money Provider</td>
+<td>Unique identifier of the MMO</td>
 </tr>
 <tr>
-<td>transaction_reference <br><font color="DarkGray"><em>string</em></font></td>
+<td>subscriber <br><font color="DarkGray"><em>string</em></font></td>
+<td>Unique identifier of the end customer in
+the MMO’s system. This is usually the
+MSISDN</td>
+</tr>
+<tr>
+<td>reference <br><font color="DarkGray"><em>string</em></font></td>
 <td>The reference number as assigned to the transaction by the mobile money provider</td>
 </tr>
 <tr>
@@ -476,10 +497,7 @@ generated by the MMO</td>
 <td>account_number <br><font color="DarkGray"><em>string</em></font></td>
 <td>The account number as entered by the subscriber. (optional – only for Paybill payments)</td>
 </tr>
-<tr>
-<td>sender_phone <br><font color="DarkGray"><em>string</em></font></td>
-<td>The subscriber&rsquo;s phone number (subscriber making the payment) in E.164 format</td>
-</tr>
+
 <tr>
 <td>first_name <br><font color="DarkGray"><em>string</em></font></td>
 <td>The first name of the subscriber</td>
