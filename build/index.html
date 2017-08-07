@@ -254,7 +254,9 @@
 
 <h2 id="business-http-api">Business API Endpoint.</h2>
 
-<p>Please contact the commercial service to get access to the different Endpoint: Contact@bboxx.co.uk</p>
+<p>Please contact the commercial service to get access to the different Endpoint: contact@bboxx.co.uk</p>
+<p>For any technical information please contact Pierre de Ramel: p.deramel@bboxx.co.uk</p>
+
 
 <h1 id="bboxx-mobile-money-api">BBOXX MOBILE MONEY API</h1>
 
@@ -387,6 +389,15 @@ provider.</td>
 (YYYYMMDDHHM
 ISS)</td>
 </tr>
+<tr>
+<td>SMSSupport</td>
+<td>Y – MNO supports SMS so
+service provider must
+send a SMS in the
+response
+N – MNO does not
+support SMS</td>
+</tr>
 </tbody></table>
 
 <h3 id="http-post">HTTP POST</h3>
@@ -405,8 +416,6 @@ https://apierp.bboxx.co.uk/mm/1.0/payments/payment/ ProviderId /customers/ Custo
 
 
 
-
-
 <table><thead>
 <tr>
 <th>Name</th>
@@ -415,21 +424,21 @@ https://apierp.bboxx.co.uk/mm/1.0/payments/payment/ ProviderId /customers/ Custo
 </thead><tbody>
 <tr>
 <td>ProviderId</td>
-<td>If a request payload is sent, it should always be a JSON string</td>
+<td>Uniquely identifies the
+Mobile Operator that
+initiated the request</td>
 </tr>
 <tr>
 <td>CustomerId</td>
-<td>Hash to authentication the requesting system</td>
+<td>Uniquely defines a
+customer in the SP
+system. Depending on the
+provider this can be an
+account number, email
+address, internal
+identifier,….</td>
 </tr>
-<tr>
-<td>SMSSupport</td>
-<td>Y – MNO supports SMS so
-service provider must
-send a SMS in the
-response
-N – MNO does not
-support SMS</td>
-</tr>
+
 </tbody></table>
 
 <h4 id="request-payload">Request Payload</h4>
