@@ -306,7 +306,7 @@ Note: the resulting hash value should be encoded in the Base 64 encoding scheme.
 
 <pre class="highlight python tab-python"><code>
 
-        <span class="n">dataencoded</span> <span class="o">=</span> <span class="n">body</span> <span class="o">+</span> <span class="n">MessageId</span> <span class="o">+</span> <span class="n">originId</span> <span class="o">+</span> <span class="n">CustomerId</span>
+        <span class="n">dataencoded</span> <span class="o">=</span> <span class="n">body</span> <span class="o">+</span> <span class="n">MessageId</span> <span class="o">+</span> <span class="n">ProviderId</span> <span class="o">+</span> <span class="n">CustomerId</span>
         <span class="k">try</span> <span class="p">:</span>
             <span class="n">hashed</span> <span class="o">=</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="n">dataencoded</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'UTF-8'</span><span class="p">),</span> <span class="n">sha1</span><span class="p">)</span>
         <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -334,7 +334,7 @@ Note: the resulting hash value should be encoded in the Base 64 encoding scheme.
 <td>The value of the identifier is of the following format GUID, where each digit is a hexadecimal value. </td>
 </tr>
 <tr>
-<td>originId<br><font color="DarkGray"><em>string</em></font></td>
+<td>ProviderId<br><font color="DarkGray"><em>string</em></font></td>
 <td>Uniquely identifies the
 Mobile Operator that
 initiated the request</td>
