@@ -458,7 +458,7 @@ identifier,….</td>
 </span><span class="s">	"transaction_type": "PayBill"</span><span class="err">
 </span><span class="s">	"first_name": "Jhon",</span><span class="err">
 </span><span class="s">	"account_number":"45678",</span><span class="err">
-</span><span class="s">	"last_name": "Doe",</span><span class="err">
+</span><span class="s">	"last_name":  1"Doe",</span><span class="err">
 </span><span class="s">	"amount" : 200.00 }'</span> 
 <!-- 
 <span class="n">post</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span> <span class="n">header</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span> <span class="n">body</span><span class="p">)</span>
@@ -563,28 +563,106 @@ MSISDN</td>
 <tr>
 <th>Code</th>
 <th>description</th>
+<th>Exemple scenario</th>
 </tr>
 </thead><tbody>
+
+
 <tr>
-<td>40001</td>
-<td>Bad Request &ndash;</td>
+<td>4001</td>
+<td>Customer not found &ndash;</td>
+<td>The Customer for provided customerID was not found in
+system. &ndash;</td>
 </tr>
+
+
 <tr>
-<td>40002</td>
-<td>Unauthorized &ndash;</td>
+<td>4002</td>
+<td>Multiple customers
+found &ndash;</td>
+<td>The Customer for provided customerID was not found in
+system. &ndash;</td>
 </tr>
+
 <tr>
-<td>40003</td>
-<td>The Paybill number or Till number being paid to</td>
+<td>4003</td>
+<td>Invalid amount &ndash;</td>
+<td>The Customer for provided customerID was not found in
+system. &ndash;</td>
 </tr>
+
+
 <tr>
-<td>40004</td>
-<td>The Mobile Money Provider doesn&rsquo;t exist</td>
+<td>4004</td>
+<td> Forbidden operation &ndash;</td>
+<td>The customer identified by the customerId is not
+allowed to perform this operation. &ndash;</td>
 </tr>
+
+
 <tr>
-<td>500</td>
-<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
+<td>4005</td>
+<td>Invalid Reference &ndash;</td>
+
+<td>The reference provided in the message is invalid. i.e:
+The reference is unknown &ndash;</td>
+
 </tr>
+
+
+
+<tr>
+<td>4006</td>
+<td> Invalid currency  &ndash;</td>
+
+<td>The provided currency is not valid. &ndash;</td>
+
+</tr>
+
+
+
+<tr>
+<td>4007</td>
+<td>Too many extensions &ndash;</td>
+
+<td>The number of extensions is superior than the
+maximum allowed. &ndash;</td>
+
+</tr>
+
+
+
+<tr>
+<td>4008</td>
+<td>Field value length too
+large: <fieldName> &ndash;</td>
+
+<td>Field value exceeded the maximum length allowed. &ndash;</td>
+
+</tr>
+
+
+<tr>
+<td>4009</td>
+<td>Transaction ID not
+found &ndash;</td>
+
+<td>The transaction ID provided was not found. &ndash;</td>
+
+</tr>
+
+
+
+<tr>
+<td>4010</td>
+<td> Duplicate Transaction
+ID. &ndash;</td>
+
+<td>The Customer for provided customerID was not found in
+system. &ndash;</td>
+
+</tr>
+
 </tbody></table>
 
       </div>
