@@ -226,36 +226,6 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="bboxx-business-api">BBOXX BUSINESS API</h1>
-
-<h2 id="introduction">Introduction</h2>
-
-<p>The BBOXX BUSINESS API is organized around REST. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. We use built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients. We support cross-origin resource sharing, allowing you to interact securely with our API.</p>
-
-<h2 id="authentication">Authentication</h2>
-<pre class="highlight python tab-python"><code>
-    <span class="n">url</span> <span class="o">=</span> <span class="s">'https://pulse.bboxx.co.uk/authenticate'</span>
-    <span class="n">fields</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s">"username"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span><span class="p">,</span>
-        <span class="s">"password"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span>
-    <span class="p">}</span>
-
-    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">fields</span><span class="p">)</span>
-
-    <span class="n">token</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s">'content'</span><span class="p">][</span><span class="s">'data'</span><span class="p">][</span><span class="s">'token'</span><span class="p">]</span>
-    <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s">'X-Auth-Token'</span><span class="p">:</span> <span class="n">token</span><span class="p">}</span>
-
-</code></pre>
-<p>Authentication for any request is made by added a valid token to the headers as follows:</p>
-
-<p>{&lsquo;Content-Type&rsquo;: &lsquo;application/json&rsquo;, &lsquo;X-Auth-Token&rsquo;: <token>}</p>
-
-<p>The token is a random 64-char string.</p>
-
-<h2 id="business-http-api">Business API Endpoint.</h2>
-
-<p>Please contact the commercial service to get access to the different Endpoint: contact@bboxx.co.uk</p>
-<p>For any technical information please contact Pierre de Ramel: p.deramel@bboxx.co.uk</p>
 
 
 <h1 id="bboxx-mobile-money-api">BBOXX MOBILE MONEY API</h1>

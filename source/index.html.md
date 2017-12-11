@@ -15,40 +15,6 @@ includes:
 search: true
 ---
 
-# BBOXX BUSINESS API 
-
-## Introduction
-
-
-The BBOXX BUSINESS API is organized around REST. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. We use built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients. We support cross-origin resource sharing, allowing you to interact securely with our API.
-## Authentication
-
-```python
-
-    url = 'https://pulse.bboxx.co.uk/authenticate'
-    fields = {
-        "username": <username>,
-        "password": <password>
-    }
-
-    r = requests.post(url, data=fields)
-
-    token = r.json['content']['data']['token']
-    headers={'X-Auth-Token': token}
-
-```
-
-Authentication for any request is made by added a valid token to the headers as follows:
-
-{'Content-Type': 'application/json', 'X-Auth-Token': <token>}
-
-The token is a random 64-char string.
-
-
-## Business HTTP API.
-
-Please contact the commercial service to get access to the different Endpoint: Contact@bboxx.co.uk
-
 
 
 # BBOXX MOBILE MONEY API
