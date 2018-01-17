@@ -420,19 +420,20 @@ identifier,….</td>
 <span class="s">'MessageID'</span><span class="p">:</span><span class="s">'74e46da2-41ff-8bba-f529-930acbffdb4c'</span><span class="p">,</span><span class="s">'MessageTimestamp'</span><span class="p">:</span><span class="s">'20161029113022'</span><span class="p">}</span> 
 
 <span class="n">body</span> <span class="o">=</span> <span class="s">'{"transactionId" : "123647",</span><span class="err">
-</span><span class="s">	"reference" : "bill-0001",</span><span class="err">
-</span><span class="s">	"operator" : "Mobile_provider", </span><span class="err">
-</span><span class="s">	"subscriber" : "250786474859", </span><span class="err">
-</span><span class="s">	"countryCode" : "RW", </span><span class="err">
-</span><span class="s">	"currency" : "RWF", </span><span class="err">
-</span><span class="s">	"transaction_type": "PayBill"</span><span class="err">
-</span><span class="s">	"first_name": "Jhon",</span><span class="err">
-</span><span class="s">	"account_number":"45678",</span><span class="err">
-</span><span class="s">	"last_name":  1"Doe",</span><span class="err">
-</span><span class="s">	"amount" : 200.00 }'</span> 
-<!-- 
-<span class="n">post</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span> <span class="n">header</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span> <span class="n">body</span><span class="p">)</span>
- -->
+</span><span class="s"> "reference" : "bill-0001",</span><span class="err">
+</span><span class="s"> "operator" : "Mobile_provider", </span><span class="err">
+</span><span class="s"> "subscriber" : "250786474859", </span><span class="err">
+</span><span class="s"> "countryCode" : "RW", </span><span class="err">
+</span><span class="s"> "transaction_type": "PayBill"</span><span class="err">
+</span><span class="s"> "first_name": "Jhon",</span><span class="err">
+</span><span class="s"> "account_number":"45678",</span><span class="err">
+</span><span class="s"> "last_name":  "Doe",</span><span class="err">
+</span><span class="s"> "amountTargetValue":  78.79,</span><span class="err">
+</span><span class="s"> "amountTargetCurrency":  "GBP",</span><span class="err">
+</span><span class="s"> "exchangeRate":  1.38,</span><span class="err">
+</span><span class="s"> "currency" : "USD", </span><span class="err">
+</span><span class="s"> "amount" : 100.00 }'</span> 
+
 
 </code></pre>
 <table><thead>
@@ -487,11 +488,24 @@ MSISDN</td>
 </tr>
 <tr>
 <td>amount <br><font color="DarkGray"><em>int</em></font></td>
-<td>The transaction amount</td>
+<td>Contains the amount to be paid in local currency</td>
 </tr>
 <tr>
 <td>currency <br><font color="DarkGray"><em>string</em></font></td>
-<td>Currency in use</td>
+<td>Contains the local currency reference</td>
+</tr>
+<tr>
+<td>amountTargetValue <br><font color="DarkGray"><em>int</em></font></td>
+<td>Contains the amount to be paid in target currency</td>
+</tr>
+<tr>
+<td>amountTargetCurrency <br><font color="DarkGray"><em>string</em></font></td>
+<td>Contains the target currency reference</td>
+</tr>
+<tr>
+<td>exchangeRate <br><font color="DarkGray"><em>int</em></font></td>
+<td>Exchange rate between both currencies (if
+applicable)</td>
 </tr>
 </tbody></table>
 
@@ -595,18 +609,21 @@ initiated the request</td>
 <pre class="highlight python tab-python"><code>
  
 
-<span class="s">{"transactionId" : "123647",</span><span class="err">
-</span><span class="s"> "reference" : "bill-0001",</span><span class="err">
-</span><span class="s"> "operator" : "Mobile_provider", </span><span class="err">
-</span><span class="s"> "subscriber" : "250786474859", </span><span class="err">
-</span><span class="s"> "countryCode" : "RW", </span><span class="err">
-</span><span class="s"> "currency" : "RWF", </span><span class="err">
-</span><span class="s"> "transaction_type": "PayBill"</span><span class="err">
-</span><span class="s"> "first_name": "Jhon",</span><span class="err">
-</span><span class="s"> "account_number":"45678",</span><span class="err">
-</span><span class="s"> "last_name":  1"Doe",</span><span class="err">
-</span><span class="s"> "amount" : 200.00 ,</span> 
-</span><span class="s"> "Status":  "Accepted"}</span><span class="err">
+<span class="s">{"transactionId" : "123647", </span><span class="err">
+</span><span class="s">"reference" : "bill-0001", </span><span class="err">
+</span><span class="s">"operator" : "Mobile_provider", </span><span class="err">
+</span><span class="s">"subscriber" : "250786474859", </span><span class="err">
+</span><span class="s">"countryCode" : "RW", </span><span class="err">
+</span><span class="s">"transaction_type": "PayBill", </span><span class="err">
+</span><span class="s">"first_name": "Jhon", </span><span class="err">
+</span><span class="s">"account_number":"45678", </span><span class="err">
+</span><span class="s">"last_name":  "Doe", </span><span class="err">
+</span><span class="s"> "amountTargetValue":  78.79,</span><span class="err">
+</span><span class="s"> "amountTargetCurrency":  "GBP",</span><span class="err">
+</span><span class="s"> "exchangeRate":  1.38,</span><span class="err">
+</span><span class="s"> "currency" : "USD", </span><span class="err">
+</span><span class="s">"amount" : 100.00 , </span> 
+</span><span class="s">"Status":  "Accepted"}</span><span class="err">
 
 
 
@@ -675,11 +692,24 @@ MSISDN</td>
 </tr>
 <tr>
 <td>amount <br><font color="DarkGray"><em>int</em></font></td>
-<td>The transaction amount</td>
+<td>Contains the amount  paid in local currency</td>
 </tr>
 <tr>
 <td>currency <br><font color="DarkGray"><em>string</em></font></td>
-<td>Currency in use</td>
+<td>Contains the local currency reference</td>
+</tr>
+<tr>
+<td>amountTargetValue <br><font color="DarkGray"><em>int</em></font></td>
+<td>Contains the amount paid in target currency</td>
+</tr>
+<tr>
+<td>amountTargetCurrency <br><font color="DarkGray"><em>string</em></font></td>
+<td>Contains the target currency reference</td>
+</tr>
+<tr>
+<td>exchangeRate <br><font color="DarkGray"><em>int</em></font></td>
+<td>Exchange rate between both currencies (if
+applicable)</td>
 </tr>
 <tr>
 <td>Status <br><font color="DarkGray"><em>string</em></font></td>
@@ -788,7 +818,7 @@ found &ndash;</td>
 </tr>
 
 <tr>
-<td>4010</td>
+<td>40010</td>
 <td> Duplicate Transaction
 ID. &ndash;</td>
 
